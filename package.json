@@ -38,7 +38,12 @@
       "generator-donejs",
       "donejs-cli"
     ],
-    "npmAlgorithm": "flat"
+    "npmAlgorithm": "flat",
+    "envs": {
+      "server-production": {
+        "baseURL": "https://pmo-justinlove.firebaseapp.com/"
+      }
+    }
   },
   "dependencies": {
     "bit-tabs": "^0.2.0",
@@ -63,5 +68,26 @@
     "steal-qunit": "^0.1.1",
     "steal-tools": "^0.13.0",
     "testee": "^0.2.4"
+  },
+  "donejs": {
+    "deploy": {
+      "root": "dist",
+      "services": {
+        "production": {
+          "type": "firebase",
+          "config": {
+            "firebase": "pmo-justinlove",
+            "public": "./dist",
+            "headers": [{
+              "source": "/**",
+              "headers": [{
+                "key": "Access-Control-Allow-Origin",
+                "value": "*"
+              }]
+            }]
+          }
+        }
+      }
+    }
   }
 }
