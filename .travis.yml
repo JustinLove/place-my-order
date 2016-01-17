@@ -1,5 +1,21 @@
 language: node_js
 node_js: node
 before_install:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+before_deploy:
+- git config --global user.email "me@example.com"
+- git config --global user.name "PMO deploy bot"
+- node build
+- git add dist/ --force
+- git commit -m "Updating build."
+- node_modules/.bin/donejs-deploy
+deploy:
+  skip_cleanup: true
+  provider: heroku
+  app: pmo-justinlove
+  api_key:
+    secure: hpdO27lY7jaJUvGWYXBf2KH8WBMOP6b9LwvFezn/+yda1bG8KyQO9Q1gf/L7sGk4WWlxwpN2LqD8JbE26GaLHfFofjcF96eO/7/VMhd/qqtyePOROJMKmg8YbjS99+gbiykb2bPvePSnh732XifdACfQYFcZOym0rYztgQEvwqhZE3YZ3Nr1I1WjaID8V6owPstEP0OZcboVth0+rGaebO8zpAWVvSBghWuhMrXKU803uiFjuYDa3Cy5yIK26JG+LR/WCL9dpitJomgS7X10vJhg1y6d40QSJvqP2wlhVTQ+IlfbZxngqNQS++XvjNsOCeexoajYcJ8Kc3QSJGjyKb+6bjKGrzy1Vu2mBIKPLjZQtAWMVxGGCrx1xuDCYQMwya5Eq6QbbKNfFPT8L/R+KA/auCb15Vdf8xdgITU73KNHIQa1UKOoyMmXa1K5pi3iKCExA4F7h2ub1UPcDKnKPf5ERX/SyxwFQwRo05VBicg2ncTr9HtZnBBrjJQlU3A1Rqp3xZ2WFA4fChzG1hjB76A8sw7+BUjLtssVQiAGkZMA64N2z1+tz/KwoXM6KcrPPXQd4gUgBDRoqv6rWVuRj6LxaEPk68JaQk2qrR0TLyC3FduELNu3SO7lNFQCN0YcbGxjvFQ11p+dz3aLEIMfYXdVQQ2mlC5K7xhaKqvryHI=
+env:
+  global:
+    secure: PAAudQlOqGMdanYnHYmohUloZcAiFtDsC0Ko+yvTCuxVneKZPiIjWg7c6Lze75ukPkbHHrPxHjAW2vvWKwA/Kw22B1UNjLMEE4V0SEB+PEv/H6BKrmGNcg0ENPFJKjgKIDkJfG8nkdj7Sv1VknzgeXXaXJQZWGIIIZEvUqMRURLvhCw2Fd/JhAXGkEldl+ZzGuz+I3fOyXmGY0xphd5/LV9HXw3TEsHjZnjg2Trz50wD1O8FStR6hHEbPnpKPKroDWbBShyKaOIANXAYKsPyy2/GcibnBLmrvFuyoNW887PDBKqjhfObOqRM+RsgN1Dj1T4P6M0N+L8j6BZTdjuALrmY5I8ttuchD5oyVMSfBREx4qwmbMdflH+brwbx2EFQRR012Dp5p88lUQv0HU3HODSvHENqEYfmnWhr5O5yeGIz93nqFPoDDF3TVPvg2jPbFE7rrvGil/BCQAvc6QZz7Iyr01cSiy6UfMmQ5tM9nlMw7meEhuk8yJkgRPAuOHaffjlv0xqycuUUpsBe4UWVKj2Vov2OIEoW0EThvLac3d+y1fUTfATujgSS1KQ6ezmaxINxrGRA1JLKpcu4KMi5WUhpj/7O3DmDKOthByqseabpCB4ZPuJ08kxI0PadMkMj7akxLtZ8zDCyUAw6dg6gazPY+6f5yVDjbxt6+6NOr1A=
